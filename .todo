@@ -1,0 +1,12 @@
+☐ Routes:
+    ☐ Dashboard
+        ☐ Contents:
+            ☐ File widget: list of files accessible to user in the server
+            ☐ Stats widget (agg data of all files):
+                 ☐ nb of interested people
+                 ☐ nb of non interested people
+                 ☐ nb of contacts
+                 ☐ nb of remaining
+    ☐ Login
+    ☐ Table
+    ☐ Prospect
