@@ -1,13 +1,13 @@
 ☐ Routes:
     ☐ Dashboard
         ☐ Contents:
-            ☐ File widget: list of files accessible to user in the server
-            ☐ Stats widget (agg data of all files):
-                 ☐ nb of interested people
-                 ☐ nb of non interested people
-                 ☐ nb of contacts
-                 ☐ nb of remaining
+            ✔ File widget: list of files accessible to user in the server @done(22-07-31 22:32)
+            ✔ Stats widget (agg data of all files): @done(22-07-31 22:32)
+                 ✔ nb of interested people @done(22-07-31 22:32)
+                 ✔ nb of non interested people @done(22-07-31 22:32)
+                 ✔ nb of contacts @done(22-07-31 22:32)
+                 ✔ nb of remaining @done(22-07-31 22:32)
 						☐ Search widget
     ☐ Login
-    ☐ Table
+    ✔ Table @done(22-07-31 22:32)
     ☐ Prospect
