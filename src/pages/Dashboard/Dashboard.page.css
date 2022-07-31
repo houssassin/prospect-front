@@ -1,0 +1,46 @@
+#dashboard {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: calc(100% - 2rem);
+	height: calc(100% - 2rem);
+	column-gap: 2rem;
+	height: 80vh;
+}
+
+.widget {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--secondary-bg);
+	border-radius: 1rem;
+	padding: 3rem 1.5rem;
+	font-size: 1.5em;
+	max-height: 80vh;
+	overflow-y: auto;
+}
+
+.widget-title {
+	font-size: .7em;
+	margin-bottom: .5rem;
+}
+
+#files-button {
+	margin-top: auto;
+}
+
+#files {
+	margin-bottom: 3rem;
+}
+
+a {
+	text-decoration: none;
+	color: var(--white-text);
+	transition: all ease-in-out .1s;
+}
+
+a:active {
+	color: #EF959D;
+}
+
+a:visited {
+	color: #82849C;
+}
