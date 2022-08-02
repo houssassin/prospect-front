@@ -1,0 +1,21 @@
+#form {
+	background-color: var(--secondary-bg);
+	padding: 2rem 1rem;
+	border-radius: 1rem;
+	width: 50%;
+	height: 70vh;
+	overflow-y: auto;
+}
+
+form > * {
+	margin: 2rem auto;
+	width: 70%;
+}
+
+#submit-btn {
+	width: 100%;
+}
+
+#submit-group {
+	margin-top: 6rem;
+}

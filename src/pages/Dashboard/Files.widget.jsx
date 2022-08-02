@@ -1,11 +1,24 @@
 import { useEffect, useState, useRef } from "react";
 
+import { getFiles, sendFileAPI } from "@/api";
+
 import { Link } from "react-router-dom";
 
 const Stats = () => {
   const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const inputRef = useRef(null);
+
+  let trigger = true;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const files = await getFiles();
+      setFiles(files);
+    };
+    fetchData().catch((err) => alert(err));
+  }, [file]);
 
   const handleClick = () => {
     inputRef.current.click();
@@ -20,28 +33,11 @@ const Stats = () => {
     setFile(fileObj);
   };
 
-  const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-    setFiles([
-      "qsdqsd.csv",
-      "Kamil.csv",
-      "Yassine.csv",
-      "important.csv",
-      "qsdqsd.csv",
-      "Kamil.csv",
-      "Yassine.csv",
-      "important.csv",
-      "qsdqsd.csv",
-      "Kamil.csv",
-      "Yassine.csv",
-      "important.csv",
-      "qsdqsd.csv",
-      "Kamil.csv",
-      "Yassine.csv",
-      "important.csv",
-    ]);
-  }, []);
+  const sendFile = async () => {
+    await sendFileAPI(file).catch((err) => alert(err));
+    setFile(null);
+    trigger = !trigger;
+  };
 
   return (
     <div className="widget">
@@ -61,11 +57,26 @@ const Stats = () => {
         accept=".csv"
       />
       {!file ? (
-        <button onClick={handleClick} id="files-button">
+        <button onClick={handleClick} className="mt-auto">
           Charger un nouveau fichier
         </button>
       ) : (
-        <></>
+        <div style={{ display: "flex" }} className="mt-auto">
+          <button
+            className="btn-success"
+            onClick={sendFile}
+            style={{ marginRight: "auto" }}
+          >
+            Upload
+          </button>
+          <button
+            className="btn-dark"
+            onClick={() => setFile(null)}
+            style={{ marginLeft: "auto" }}
+          >
+            Back
+          </button>
+        </div>
       )}
     </div>
   );

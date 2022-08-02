@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import Table from "./Table/Table.widget";
 
 import "./File.page.css";
+import { Link } from "react-router-dom";
 
 const File = () => {
   const history = useHistory();
@@ -29,7 +30,17 @@ const File = () => {
         <Table lines={lines} />
       </div>
       <div className="center">
-        <button id="prospect-start">Commencer la prospection</button>
+        <Link
+          id="prospect-start"
+          style={{ color: "#FFF" }}
+          className="btn btn-dark"
+          to={{
+            pathname: "/prospect",
+            state: { file: history.location.state.file ?? null },
+          }}
+        >
+          Commencer la prospection
+        </Link>
       </div>
     </div>
   );
