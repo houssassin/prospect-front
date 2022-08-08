@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import { getLines } from "@/api";
+
 import Table from "./Table/Table.widget";
 
 import "./File.page.css";
@@ -10,15 +12,15 @@ const File = () => {
   const history = useHistory();
   const [lines, setLines] = useState([[]]);
   useEffect(() => {
-    if (!history.location.state || !history.location.state.file)
-      history.push("/dashboard");
-    const data = [
-      ["Nom", "Prénom", "Age", "Formation", "Etablissement actuel", "Statut"],
-    ];
-    for (let index = 0; index < 100; index++) {
-      data.push(["Foulan", "Flann", "19 ans", "Bac+1", "Henri le petit", null]);
-    }
-    setLines(data);
+    const fetchData = async () => {
+      if (!history.location.state || !history.location.state.file)
+        history.push("/dashboard");
+      const data = await getLines(history.location.state.file).catch((err) =>
+        alert(err)
+      );
+      setLines(data);
+    };
+    fetchData();
   }, []);
 
   return (

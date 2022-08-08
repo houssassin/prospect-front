@@ -2,6 +2,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import "@/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import Dashboard from "@/pages/Dashboard/Dashboard.page";
 import File from "@/pages/File/File.page";

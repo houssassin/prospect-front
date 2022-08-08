@@ -1,4 +1,4 @@
-☐ Routes:
+✔ Routes: @done(22-08-03 18:09)
     ✔ Dashboard @done(22-08-01 16:46)
         ✔ Contents: @done(22-08-01 16:46)
             ✔ File widget: list of files accessible to user in the server @done(22-07-31 22:32)
@@ -10,4 +10,4 @@
 						✔ Search widget @done(22-08-01 16:46)
     ✔ Login @done(22-08-01 16:22)
     ✔ Table @done(22-07-31 22:32)
-    ☐ Prospect
+    ✔ Prospect @done(22-08-03 18:07)

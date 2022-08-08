@@ -1,23 +1,31 @@
 import { useEffect, useState, useRef } from "react";
-
-import { getFiles, sendFileAPI } from "@/api";
+import { useHistory } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+
+const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
 const Stats = () => {
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
+  const [trigger, setTrigger] = useState(false);
+
+  const history = useHistory();
 
   const inputRef = useRef(null);
 
-  let trigger = true;
-
   useEffect(() => {
-    const fetchData = async () => {
-      const files = await getFiles();
-      setFiles(files);
-    };
-    fetchData().catch((err) => alert(err));
+    const token = window.localStorage.getItem("token");
+    if (!token) history.push("/login", { err: "No session, please connect" });
+    fetch(URL + "/getfiles", {
+      method: "POST",
+      headers: { Authorization: token },
+    })
+      .then((data) => data.json())
+      .then((res) =>
+        !res.success ? history.push("/login", { err: res.message }) : res.data
+      )
+      .then((data) => setFiles(data));
   }, [file]);
 
   const handleClick = () => {
@@ -36,7 +44,7 @@ const Stats = () => {
   const sendFile = async () => {
     await sendFileAPI(file).catch((err) => alert(err));
     setFile(null);
-    trigger = !trigger;
+    setTrigger(!trigger);
   };
 
   return (
