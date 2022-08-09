@@ -8,8 +8,6 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLDivElement).render(
   <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </Router>
 );

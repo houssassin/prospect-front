@@ -6,16 +6,18 @@ import "./Table.widget.css";
 
 const Table = (props) => {
   return (
-    <BTable>
-      <thead>
-        <tr>
-          {props.lines[0].map((elem, i) => (
-            <th key={i}>{elem}</th>
+    <BTable style={{ margin: "0" }}>
+      <thead style={{ borderColor: "var(--darker-white)" }}>
+        <tr style={{ backgroundColor: "var(--darker-white)", color: "white" }}>
+          {Object.keys(props.lines[0]).map((elem, i) => (
+            <th style={{ textAlign: "center" }} key={i}>
+              {elem}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {props.lines.slice(1, -1).map((line, i) => (
+        {props.lines.map((line, i) => (
           <Tableline key={i} line={line} />
         ))}
       </tbody>

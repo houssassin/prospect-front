@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+
+import { toast } from "react-toastify";
 
 import { Link } from "react-router-dom";
 
@@ -22,10 +25,19 @@ const Stats = () => {
       headers: { Authorization: token },
     })
       .then((data) => data.json())
-      .then((res) =>
-        !res.success ? history.push("/login", { err: res.message }) : res.data
-      )
-      .then((data) => setFiles(data));
+      .then((res) => {
+        if (res.success) setFiles(res.data);
+        else throw new Error(res.message);
+      })
+      .catch((err) => {
+        if ((err.message = "Unauthorized"))
+          history.push("/login", { err: res.message });
+        else
+          toast.error("Failed to fetch, please try again", {
+            position: "bottom-center",
+            theme: "dark",
+          });
+      });
   }, [file]);
 
   const handleClick = () => {
@@ -41,52 +53,77 @@ const Stats = () => {
     setFile(fileObj);
   };
 
-  const sendFile = async () => {
-    await sendFileAPI(file).catch((err) => alert(err));
-    setFile(null);
-    setTrigger(!trigger);
+  const sendFile = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+    fetch(URL + "/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((data) => data.json())
+      .then(({ success, message }) => {
+        if (success) {
+          console.log(success);
+          setFile(null);
+          setTrigger(!trigger);
+          toast.success("Succesfully uploaded file !", {
+            theme: "dark",
+            position: "bottom-center",
+          });
+        } else throw new Error(message);
+      })
+      .catch((err) => {
+        console.log("triggered");
+        toast.error(err.message, {
+          theme: "dark",
+          position: "bottom-center",
+        });
+      });
   };
 
   return (
-    <div className="widget">
-      <h3 className="widget-title">Fichiers</h3>
-      <div id="files">
-        {files.map((elem, i) => (
-          <Link key={i} to={{ pathname: "/file", state: { file: elem } }}>
-            <p>{elem}</p>
-          </Link>
-        ))}
-      </div>
-      <input
-        style={{ display: "none" }}
-        ref={inputRef}
-        type="file"
-        onChange={handleFileChange}
-        accept=".csv"
-      />
-      {!file ? (
-        <button onClick={handleClick} className="mt-auto">
-          Charger un nouveau fichier
-        </button>
-      ) : (
-        <div style={{ display: "flex" }} className="mt-auto">
-          <button
-            className="btn-success"
-            onClick={sendFile}
-            style={{ marginRight: "auto" }}
-          >
-            Upload
-          </button>
-          <button
-            className="btn-dark"
-            onClick={() => setFile(null)}
-            style={{ marginLeft: "auto" }}
-          >
-            Back
-          </button>
+    <>
+      <div className="widget">
+        <h3 className="widget-title">Fichiers</h3>
+        <div id="files">
+          {files.map((elem, i) => (
+            <Link key={i} to={{ pathname: "/file", state: { file: elem } }}>
+              <p>{elem}</p>
+            </Link>
+          ))}
         </div>
-      )}
-    </div>
+        <input
+          style={{ display: "none" }}
+          ref={inputRef}
+          type="file"
+          onChange={handleFileChange}
+          accept=".csv"
+        />
+        {!file ? (
+          <Button onClick={handleClick} className="mt-auto big-btn primary-bg">
+            Charger un nouveau fichier
+          </Button>
+        ) : (
+          <div style={{ display: "flex" }} className="mt-auto">
+            <Button
+              variant="success"
+              onClick={sendFile}
+              className="big-btn mr-auto"
+            >
+              Upload
+            </Button>
+            <Button
+              variant="dark"
+              onClick={() => setFile(null)}
+              className="big-btn ml-auto"
+            >
+              Back
+            </Button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

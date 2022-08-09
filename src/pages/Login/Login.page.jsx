@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import "./Login.page.css";
 import { useEffect, useState } from "react";
@@ -16,13 +16,14 @@ const Login = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(history.location.state);
-    if (history.location.state && history.location.state.err)
+    if (!!history.location.state && !!history.location.state.err) {
+      console.log("here");
       toast.error(history.location.state.err, {
         position: "bottom-center",
         theme: "dark",
       });
-    if (history.location.state && history.location.state.message)
+    }
+    if (!!history.location.state && !!history.location.state.message)
       toast.info(history.location.state.message, {
         position: "bottom-center",
         theme: "dark",
@@ -38,12 +39,13 @@ const Login = () => {
           if (res.success) return history.push("/dashboard");
           else throw new Error(res.message);
         })
-        .catch(() =>
+        .catch(() => {
+          window.localStorage.removeItem("token");
           toast.error("Session has expired, please reconnect", {
             position: "bottom-center",
             theme: "dark",
-          })
-        );
+          });
+        });
   }, []);
 
   const onSubmit = (event) => {
@@ -78,42 +80,39 @@ const Login = () => {
   };
 
   return (
-    <>
-      <ToastContainer />
-      <Form id="form" onSubmit={onSubmit}>
-        <h2 style={{ fontSize: "1.5rem", textAlign: "center" }}>Login</h2>
-        <Form.Group>
-          <Form.Label htmlFor="user">User</Form.Label>
-          <Form.Control
-            name="user"
-            id="user"
-            type="user"
-            value={user}
-            onChange={(event) => setUser(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="password">Password</Form.Label>
-          <Form.Control
-            name="password"
-            id="password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Form.Group>
-        <Form.Group id="submit-group">
-          <Button
-            id="submit-btn"
-            style={{ margin: "0 auto" }}
-            type="submit"
-            variant="dark"
-          >
-            Login
-          </Button>
-        </Form.Group>
-      </Form>
-    </>
+    <Form id="form" onSubmit={onSubmit}>
+      <h2 style={{ fontSize: "1.5rem", textAlign: "center" }}>Login</h2>
+      <Form.Group>
+        <Form.Label htmlFor="user">User</Form.Label>
+        <Form.Control
+          name="user"
+          id="user"
+          type="user"
+          value={user}
+          onChange={(event) => setUser(event.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label htmlFor="password">Password</Form.Label>
+        <Form.Control
+          name="password"
+          id="password"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Form.Group>
+      <Form.Group id="submit-group">
+        <Button
+          id="submit-btn"
+          style={{ margin: "0 auto" }}
+          type="submit"
+          variant="dark"
+        >
+          Login
+        </Button>
+      </Form.Group>
+    </Form>
   );
 };
 

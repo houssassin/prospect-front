@@ -6,6 +6,13 @@
 	--secondary-scroll: #222667;
 	--white-text: #dfe0e7;
 
+	--red: #B4654A !important;
+	--green: #069E2D !important;
+	--blue: #6A6B83 !important;
+	--white: #e7e9ff !important;
+	--orange: #EE8A58 !important;
+	--darker-white: #48495c !important;
+
   font-family: Helvetica, Inter, Avenir, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -40,27 +47,6 @@ h1 {
 
 .bigger {
 	font-size: 2em;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--primary-bg);
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 ::-webkit-scrollbar {

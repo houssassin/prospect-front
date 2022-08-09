@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
@@ -18,27 +18,27 @@ const Signout = () => {
     })
       .then((data) => data.json())
       .then(({ success }) => {
-        if (success) history.push("/login", { message: "Logout successful" });
-        else throw new Error("Couldn't log out, try again later");
+        if (success) {
+          window.localStorage.removeItem("token");
+          history.push("/login", { message: "Logout successful" });
+        } else throw new Error("Couldn't log out, try again later");
       })
       .catch((err) =>
         toast.error(err.message, { position: "top-right", theme: "dark" })
       );
   };
   return (
-    <>
-      <Button
-        onClick={signout}
-        variant="danger"
-        style={{
-          marginLeft: "auto",
-          marginRight: "1rem",
-          marginBottom: "1rem",
-        }}
-      >
-        Signout
-      </Button>
-    </>
+    <Button
+      onClick={signout}
+      variant="danger"
+      style={{
+        marginLeft: "auto",
+        marginRight: "1rem",
+        marginBottom: "1rem",
+      }}
+    >
+      Signout
+    </Button>
   );
 };
 
