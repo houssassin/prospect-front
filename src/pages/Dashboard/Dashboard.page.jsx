@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Stats from "./Stats.widget";
 import Files from "./Files.widget";
@@ -14,6 +15,11 @@ const Dashboard = () => {
   useEffect(() => {
     if (!!history.location.state && !!history.location.state.err)
       toast.error(history.location.state.err, {
+        position: "top-center",
+        theme: "dark",
+      });
+    if (!!history.location.state && !!history.location.state.success)
+      toast.success(history.location.state.success, {
         position: "top-center",
         theme: "dark",
       });

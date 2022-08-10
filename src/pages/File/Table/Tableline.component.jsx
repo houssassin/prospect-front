@@ -41,7 +41,8 @@ const Tableline = (props) => {
         ))}
       <td style={{ textAlign: "center" }}>{status[line.Etat].status}</td>
       <td style={{ textAlign: "center" }}>
-        {line.Commentaire || "Pas encore prospecté"}
+        {line.Commentaire ||
+          (parseInt(line.Etat) ? "No comment" : "Pas encore prospecté")}
       </td>
     </tr>
   );

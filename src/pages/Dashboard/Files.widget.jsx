@@ -31,7 +31,7 @@ const Stats = () => {
       })
       .catch((err) => {
         if ((err.message = "Unauthorized"))
-          history.push("/login", { err: res.message });
+          history.push("/login", { err: err.message });
         else
           toast.error("Failed to fetch, please try again", {
             position: "bottom-center",

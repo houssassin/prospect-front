@@ -6,8 +6,8 @@ const Checkbox = (props) => {
 
   const radios = [
     { name: "Intéressé", value: 1, variant: "outline-success" },
-    { name: "Non intéressé", value: 2, variant: "outline-danger" },
-    { name: "En cours de discussion", value: 3, variant: "outline-warning" },
+    { name: "En cours de discussion", value: 2, variant: "outline-warning" },
+    { name: "Non intéressé", value: 3, variant: "outline-danger" },
     { name: "Injoignable", value: 4, variant: "outline-primary" },
   ];
 

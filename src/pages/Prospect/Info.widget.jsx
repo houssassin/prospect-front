@@ -7,14 +7,14 @@ import { toast } from "react-toastify";
 
 const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
-const Info = ({ nextProspect }) => {
+const Info = ({ nextProspect, setIndex, count }) => {
   const [info, setInfo] = useState(null);
   const history = useHistory();
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (!token)
       history.push("/login", { err: "You have no session, please connect" });
-    if (!history.location.state && !history.location.state.file)
+    if (!history.location.state || !history.location.state.file)
       history.push("/dashboard", { err: "You have no file selected" });
 
     fetch(URL + "/prospect", {
@@ -27,14 +27,17 @@ const Info = ({ nextProspect }) => {
         if (!res.success) throw new Error(res.message);
         else {
           if (res.message) history.push("/dashboard", { success: res.message });
-          else setInfo(res.data);
+          else {
+            setInfo(res.data.info);
+            setIndex(res.data.index);
+          }
         }
       })
       .catch((err) => {
         console.log(err);
         toast.error(err.message, { position: "top-center", theme: "dark" });
       });
-  }, []);
+  }, [count]);
   return (
     <div
       className="pwidget flex flex-col items-center justify-center"
