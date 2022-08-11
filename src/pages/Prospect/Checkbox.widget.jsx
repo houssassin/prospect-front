@@ -22,7 +22,7 @@ const Checkbox = (props) => {
             variant={radio.variant}
             name="radio"
             value={radio.value}
-            checked={radioValue === radio.value}
+            checked={radioValue == radio.value}
             onChange={(e) => setRadioValue(e.currentTarget.value)}
           >
             {radio.name}

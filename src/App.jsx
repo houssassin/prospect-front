@@ -19,7 +19,7 @@ const App = () => (
       <Route path="/file" component={File} />
       <Route path="/prospect" component={Prospect} />
       <Route path="/">
-        <Redirect to="/dashboard" />
+        <Redirect to="/login" />
       </Route>
     </Switch>
   </>
