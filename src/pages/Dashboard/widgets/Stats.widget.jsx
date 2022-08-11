@@ -21,12 +21,11 @@ const Stats = () => {
     })
       .then((data) => data.json())
       .then((res) => {
-        console.log(res);
         if (!res.success) throw new Error("Failed to fetch");
         setInterested(res.data["interested"]);
-        setNonInterested(res.data["non-interested"]);
-        setContacts(res.data["total"]);
-        setRemaining(res.data["not-contacted"]);
+        setNonInterested(res.data["noninterested"]);
+        setContacts(res.data["contacts"]);
+        setRemaining(res.data["remaining"]);
       })
       .catch((err) =>
         toast.error(err.message, { theme: "dark", position: "top-center" })

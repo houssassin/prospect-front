@@ -11,7 +11,6 @@ const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 const Stats = () => {
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
-  const [trigger, setTrigger] = useState(false);
 
   const history = useHistory();
 
@@ -29,6 +28,7 @@ const Stats = () => {
     })
       .then((data) => data.json())
       .then((res) => {
+        console.log(res);
         if (res.success) setFiles(res.data);
         else throw new Error(res.message);
       })
@@ -41,7 +41,7 @@ const Stats = () => {
             theme: "dark",
           });
       });
-  }, []);
+  }, [file]);
 
   const handleClick = () => {
     inputRef.current.click();
@@ -60,16 +60,20 @@ const Stats = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", file, file.name);
+    const token = window.localStorage.getItem("token");
+    if (!token)
+      history.push("/login", {
+        err: "Not currently signed in, please sign in",
+      });
     fetch(URL + "/upload", {
       method: "POST",
       body: formData,
+      headers: { Authorization: token },
     })
       .then((data) => data.json())
       .then(({ success, message }) => {
         if (success) {
-          console.log(success);
           setFile(null);
-          setTrigger(!trigger);
           toast.success("Succesfully uploaded file !", {
             theme: "dark",
             position: "bottom-center",
@@ -77,7 +81,6 @@ const Stats = () => {
         } else throw new Error(message);
       })
       .catch((err) => {
-        console.log("triggered");
         toast.error(err.message, {
           theme: "dark",
           position: "bottom-center",

@@ -14,6 +14,9 @@ const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
 const searchMap = {
   "Par nom": "Nom",
+  "Par age": "Age",
+  "Par niveau d'étude": "Niveau d'étude",
+  "Par email": "Email",
   "Par établissement d'origine": "Etablissement",
 };
 
@@ -40,7 +43,6 @@ const File = () => {
     })
       .then((data) => data.json())
       .then((res) => {
-        console.log(res);
         if (res.success) {
           setData(res.data);
           setLines(res.data);

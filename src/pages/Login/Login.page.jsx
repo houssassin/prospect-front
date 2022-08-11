@@ -10,14 +10,13 @@ import { useHistory } from "react-router-dom";
 const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
 const Login = () => {
-  const [user, setUser] = useState("yassine");
-  const [password, setPassword] = useState("yassine");
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
 
   useEffect(() => {
     if (!!history.location.state && !!history.location.state.err) {
-      console.log("here");
       toast.error(history.location.state.err, {
         position: "bottom-center",
         theme: "dark",
@@ -36,10 +35,13 @@ const Login = () => {
       })
         .then((data) => data.json())
         .then((res) => {
-          if (res.success) return history.push("/dashboard");
-          else throw new Error(res.message);
+          if (res.success) {
+            window.localStorage.setItem("perm", res.data.perm);
+            return history.push("/dashboard");
+          } else throw new Error(res.message);
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           window.localStorage.removeItem("token");
           toast.error("Session has expired, please reconnect", {
             position: "bottom-center",
@@ -66,12 +68,12 @@ const Login = () => {
         if (res.success) return res.data;
         throw new Error(res.message);
       })
-      .then(({ token }) => {
+      .then(({ token, perm }) => {
         window.localStorage.setItem("token", token);
+        window.localStorage.setItem("perm", perm);
         history.push("/dashboard");
       })
       .catch((err) => {
-        console.log(err);
         toast.error(err.message, {
           position: "bottom-center",
           theme: "dark",

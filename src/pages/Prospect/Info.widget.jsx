@@ -34,7 +34,6 @@ const Info = ({ nextProspect, setIndex, count }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         toast.error(err.message, { position: "top-center", theme: "dark" });
       });
   }, [count]);

@@ -25,7 +25,6 @@ const Search = () => {
           >
             <option>Par nom</option>
             <option>Par établissement d'origine</option>
-            <option>Un fichier</option>
           </Form.Select>
         </Form.Group>
         <Form.Group>

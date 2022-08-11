@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
-const Signout = ({ token }) => {
+const Signout = ({ token, className }) => {
   const history = useHistory();
 
   const signout = (event) => {
@@ -26,15 +26,7 @@ const Signout = ({ token }) => {
       );
   };
   return (
-    <Button
-      onClick={signout}
-      variant="danger"
-      style={{
-        marginLeft: "auto",
-        marginRight: "1rem",
-        marginBottom: "1rem",
-      }}
-    >
+    <Button className={className} onClick={signout} variant="danger">
       Signout
     </Button>
   );

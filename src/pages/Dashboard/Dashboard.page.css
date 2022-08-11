@@ -1,6 +1,6 @@
 #dashboard {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 	width: calc(100% - 2rem);
 	height: calc(100% - 2rem);
 	column-gap: 2rem;
@@ -14,7 +14,7 @@
 	border-radius: 1rem;
 	padding: 3rem 1.5rem;
 	font-size: 1.5em;
-	max-height: 80vh;
+	/* max-height: 80vh; */
 	overflow-y: auto;
 }
 
@@ -39,4 +39,8 @@ a:active {
 
 a:visited {
 	color: #82849C;
+}
+
+#header > * {
+	margin: 1rem;
 }

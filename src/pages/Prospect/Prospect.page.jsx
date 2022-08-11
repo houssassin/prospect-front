@@ -20,7 +20,6 @@ const Prospect = () => {
 
   const history = useHistory();
   useEffect(() => {
-    console.log(count);
     if (!history.location.state || !history.location.state.file)
       history.push("/dashboard", { err: "No file selected, try again" });
     setFileName(history.location.state.file);
@@ -45,7 +44,6 @@ const Prospect = () => {
       .then((res) => {
         if (res.success) {
           setCount(count + 1);
-          console.log(count);
         } else throw new Error(res.message);
       })
       .catch((err) => {
