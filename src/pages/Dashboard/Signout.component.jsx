@@ -5,13 +5,11 @@ import { toast } from "react-toastify";
 
 const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
-const Signout = () => {
+const Signout = ({ token }) => {
   const history = useHistory();
 
   const signout = (event) => {
     event.preventDefault();
-    const token = window.localStorage.getItem("token");
-    if (!token) history.push("/login");
     fetch(URL + "/signout", {
       method: "POST",
       headers: { Authorization: token },

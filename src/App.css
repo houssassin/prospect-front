@@ -57,3 +57,7 @@
 .big-btn:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color !important;
 }
+
+.w-50 {
+	width: 50%;
+}

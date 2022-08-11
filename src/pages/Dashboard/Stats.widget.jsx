@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+const URL = import.meta.env.REACT_APP_URL ?? "http://localhost:8080";
 
 const Stats = () => {
   const [interested, setInterested] = useState(0);
@@ -7,7 +10,27 @@ const Stats = () => {
   const [remaining, setRemaining] = useState(0);
 
   useEffect(() => {
-    // fetch les interested, non interested...
+    const token = window.localStorage.getItem("token");
+    if (!token)
+      history.push("/login", {
+        err: "Not currently signed in, please sign in",
+      });
+    fetch(URL + "/getstats", {
+      method: "POST",
+      headers: { Authorization: token },
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        console.log(res);
+        if (!res.success) throw new Error("Failed to fetch");
+        setInterested(res.data["interested"]);
+        setNonInterested(res.data["non-interested"]);
+        setContacts(res.data["total"]);
+        setRemaining(res.data["not-contacted"]);
+      })
+      .catch((err) =>
+        toast.error(err.message, { theme: "dark", position: "top-center" })
+      );
   }, []);
   return (
     <div className="widget">

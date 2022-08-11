@@ -19,7 +19,10 @@ const Stats = () => {
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
-    if (!token) history.push("/login", { err: "No session, please connect" });
+    if (!token)
+      history.push("/login", {
+        err: "Not currently signed in, please sign in",
+      });
     fetch(URL + "/getfiles", {
       method: "POST",
       headers: { Authorization: token },
@@ -38,7 +41,7 @@ const Stats = () => {
             theme: "dark",
           });
       });
-  }, [file]);
+  }, []);
 
   const handleClick = () => {
     inputRef.current.click();
