@@ -23,9 +23,9 @@ const searchMap = {
 const File = () => {
   const history = useHistory();
 
-  const [data, setData] = useState([[]]);
+  const [data, setData] = useState([]);
 
-  const [lines, setLines] = useState([[]]);
+  const [lines, setLines] = useState([]);
   const [search, setSearch] = useState("");
   const [searchOption, setSearchOption] = useState("Par nom");
 
@@ -60,7 +60,7 @@ const File = () => {
 
   useEffect(() => {
     const regex = new RegExp(`\\b${search}`, "i");
-    setLines(data.filter((line) => regex.test(line[searchMap[searchOption]])));
+    setLines(data.filter((line) => regex.test(line[searchOption])));
   }, [search, searchOption]);
 
   return (
@@ -80,8 +80,8 @@ const File = () => {
           value={searchOption}
           className="w-50"
         >
-          {Object.keys(searchMap).map((elem, i) => (
-            <option key={i}>{elem}</option>
+          {lines[0] && Object.keys(lines[0]).map((elem, i) => (
+            <option value={elem} key={i}>Par {elem}</option>
           ))}
         </Form.Select>
       </Form.Group>
